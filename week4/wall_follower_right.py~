@@ -1,0 +1,61 @@
+#!/usr/bin/env python
+import numpy as np
+import rospy
+from rospy.numpy_msg import numpy_msg
+from sensor_msgs.msg import LaserScan
+from ackermann_msgs.msg import AckermannDriveStamped
+from time import time
+
+class WallFollower:
+    # Import ROS parameters from the "params.yaml" file.
+    # Access these variables in class functions with self:
+    # i.e. self.CONSTANT
+    DESIRED_DISTANCE = 1
+
+    def __init__(self):
+        # Initialize your publishers and
+        # subscroribers
+
+        self.data = None
+
+        self.cmd = AckermannDriveStamped()
+        self.laser_sub = rospy.Subscriber('/scan', LaserScan, self.scan, queue_size=1)
+        self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size=1)
+        
+
+
+    def scan(self, data):
+        self.data = data
+        self.drive()
+
+
+    def drive(self):
+        """controls driving"""
+####    ###   bang - bang   ###
+        #if (int(len(self.data.ranges)*(1/4))-1 >= self.data.ranges.index(min(self.data.ranges))):
+            #self.cmd.drive.steering_angle = 1
+        #else:
+            #self.cmd.drive.steering_angle = -1
+####    ###   P controller   ###
+        self.rightError = (int(len(self.data.ranges)*(1/6))-1) - (self.data.ranges.index(min(self.data.ranges[0:len(self.data.ranges)/2])))
+        self.cmd.drive.steering_angle = (self.rightError*self.rightError)/2025
+        print("len: ",len(self.data.ranges))
+        print("sixth: ",len(self.data.ranges)*(1/6)-1)
+        print("min: ",self.data.ranges.index(min(self.data.ranges[0:len(self.data.ranges)/2])))
+        print("self.rightError: ", self.rightError)
+        print("steering_angle: ",self.cmd.drive.steering_angle)
+    
+
+        # self.angle = .33
+        # sets speed and driving angle
+        # self.cmd.drive.speed = self.VELOCITY
+        self.cmd.drive.speed = 10
+        # publishes the command
+        self.drive_pub.publish(self.cmd)
+
+
+
+if __name__ == "__main__":
+    rospy.init_node('wall_follower')
+    wall_follower = WallFollower()
+    rospy.spin()
