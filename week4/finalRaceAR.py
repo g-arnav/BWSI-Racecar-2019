@@ -42,49 +42,6 @@ class finalRaceDrive(object):
         self.camera_data = Zed_converter(False, save_image=False)
 
         self.lastTag = 0
-        #self.landmarks = {"gStart"    : ("""unknown"""),
-        #                  "sHighway"  : ("""unknown"""),
-        #                  "hOff"      : ("""unknown"""),
-        #                  "oWind"     : ("""unknown"""),
-        #                  "wBeaver"   : ("""unknown"""),
-        #                  "bWash"     : ("""unknown"""), ###
-        #                  "wOut"      : ("""unknown"""), ###
-        #                  "wHighway"  : ("""unknown"""),
-        #                  "hEnd"      : ("""unknown"""),
-        #                  "eBrick"    : ("""unknown"""), ###
-        #                  "cUnder"    : ("""unknown"""),
-        #                  "eRamp"     : ("""unknown"""),
-        #                  "rDonut"    : ("""unknown"""),
-        #                  "dDonut"    : ("""unknown"""),
-        #                  "dOff"      : ("""unknown"""),
-        #                  "oConfuse"  : ("""unknown"""),
-        #                  "bConfuse"  : ("""unknown"""), ###
-        #                  "uFunnel"   : ("""unknown"""),
-        #                  "fGrass"    : ("""unknown"""),
-        #                  "gGrass"    : ("""unknown""")}
-
-        #self.stateFunctions = ("simple_PD()", #gStart - sHighway
-        #                       "fillerFunction()", #sHighway - hOff
-        #                       "fillerFunction()", #hOff - oWind
-        #                       "fillerFunction()", #oWind - wBeaver
-        #                       "simple_PD()", #wBeaver - bWash                          SHORTCUT
-        #                       "fillerFunction()", #wBeaver - wHighway
-        #                       "fillerFunction()", #bWash - wOut                        SHORTCUT
-        #                       "simple_PD()" #wOut - wHighway                           SHORTCUT
-        #                       "fillerFunction()", #wHighway - #hEnd
-        #                       "fillerFunction()", #hEnd - eRamp
-        #                       "simple_PD()", #eRamp - rDonut
-        #                       "fillerFunction()", #rDonut - dDonut
-        #                       "fillerFunction()", #dDonut - dOff
-        #                       "simple_PD()", #dOff - oConfuse
-        #                       "fillerFunction()", #oConfuse - cUnder
-        #                       "fillerFunction()", #hEnd - eBrick                      SHORTCUT
-        #                       "fillerFunction()", #eBrick - bConfuse                 SHORTCUT
-        #                       "fillerFunction()", #bConfuse - cUnder                   SHORTCUT
-        #                       "simple_PD()", #cUnder - uFunnel
-        #                       "fillerFunction()", #uFunnel - fGrass
-        #                       "fillerFunction()", #fGrass - gGrass
-        #                       "fillerFunction()") #gGrass - gStart)
 
 
         self.tagsAndStates = ("self.navigation.potential_fields(2)", #0
